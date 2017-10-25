@@ -48,8 +48,8 @@ int *diofant3(int A, int B, int C, int N) {
 	int *result = new int[4];
 	w[1] = -1;
 	for(int i = 0; i < (N / C); i++){
-		q = diofant2(A,B,(N - C * i));
-		if((q[0] >=  0) & (q[1] >= 0)){
+		q = diofant2(A, B, (N - C * i));
+		if((q[0] >=  0) && (q[1] >= 0)){
 			suma = (q[0] + q[1] + i);
 			if(suma > sumaMax){
 				sumaMax = suma;
@@ -93,7 +93,7 @@ int min(int a, int b, int c){
 int *kaspinas(int a, int b, int c, int n) {
 	int *ww = new int[4];
 	ww = diofant3(a, b, c, n);
-	while((ww[1] == -1) & (n > min(a, b, c))){
+	while((ww[1] == -1) && (n > min(a, b, c))){
 		if(ww[1] == -1) --n;
 		ww = diofant3(a, b, c, n);
 	}
@@ -116,7 +116,7 @@ int main() {
 	cout << "Enter c:";
 	cin >> c;
 	int *r = new int[4];
-	if((n<c) | (n<b) | (n<a)){
+	if((n<c) || (n<b) || (n<a)){
 		cout << "Ошибка: части превышают длину ленты!\n";
 	}else{
 		r = kaspinas(a, b, c, n);
