@@ -14,9 +14,6 @@
 #include <iostream>
 using namespace std;
 
-//Объявляем переменные
-long int n;
-int *abc = new int[3];
 /*******************************************************************/
 /* Функция: diofant2                                               */
 /* Описание: Решение диофантова уравнения Ax + By = C              */
@@ -41,14 +38,14 @@ int *diofant2(int A, int B, int C) {
 /* Описание: Поиск наибольшей суммы целых положительных решений    */
 /* диофантова уравнения Ax + By + Cz = N                           */
 /*******************************************************************/
-int *diofant3(int A, int B, int C, int N) {
+int *diofant3(int abc[], int N) {
 	int t, suma = 0, sumaMax = 0;
 	int *q = new int[2];
 	int *w = new int[3];
 	int *result = new int[4];
 	w[1] = -1;
-	for(int i = 0; i < (N / C); i++){
-		q = diofant2(A, B, (N - C * i));
+	for(int i = 0; i < (N / abc[2]); i++){
+		q = diofant2(abc[0], abc[1], (N - abc[2] * i));
 		if((q[0] >=  0) && (q[1] >= 0)){
 			suma = (q[0] + q[1] + i);
 			if(suma > sumaMax){
@@ -66,7 +63,7 @@ int *diofant3(int A, int B, int C, int N) {
 	return result;
 }
 
-int* sort(){
+int* sort(int *abc){
 	int tmp;
 	// Сортировка abc по возрастанию 
 	for(int j = 0; j <= 2; j++) {
@@ -85,21 +82,24 @@ int* sort(){
 /* Описание: Поиск наибольшей суммы положительных целых решений    */
 /* диофантова уравнения Ax + By + Cz = N                           */
 /*******************************************************************/
-int *kaspinas(int a, int b, int c, int n) {
-	int *ww = new int[4];
-	cout << "Sorted:" << abc[0] << " " << abc[1] << " " << abc[2] << "\n"; 
-	ww = diofant3(a, b, c, n);
+int *kaspinas(int abc[] , int n) {
+	int *ww = new int[4]; 
+	ww = diofant3(abc, n);
 	
 	while((ww[1] == -1) && (n > abc[0])){
 		if(ww[1] == -1) --n;
-		ww = diofant3(a, b, c, n);
+		ww = diofant3(abc, n);
 	}
 	return ww;
 }
 
 int main() {
+	//Объявляем переменные
+	long int n;
+	int *abc = new int[3];
 	//n=7; a=2; b=5; c=5;
 	//n=21; a=5; b=5; c=5;
+
 	// Ввод значений
 	cout << "Enter n:";
 	cin >> n;
@@ -116,8 +116,8 @@ int main() {
 	if((n<abc[2]) || (n<abc[1]) || (n<abc[0])){
 		cout << "Ошибка: части превышают длину ленты!\n";
 	}else{
-		sort();
-		r = kaspinas(abc[0], abc[1], abc[2], n);
+		sort(abc);
+		r = kaspinas(abc, n);
 		cout << "Ответ: " <<  r[0] << "\n";
 	}
 }
