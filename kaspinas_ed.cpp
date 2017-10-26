@@ -38,11 +38,10 @@ int *diofant2(int A, int B, int C) {
 /* Описание: Поиск наибольшей суммы целых положительных решений    */
 /* диофантова уравнения Ax + By + Cz = N                           */
 /*******************************************************************/
-int *diofant3(int abc[], int N) {
+int  diofant3(int abc[], int N) {
 	int t, suma = 0, sumaMax = 0;
 	int *q = new int[2];
 	int *w = new int[3];
-	int *result = new int[4];
 	w[1] = -1;
 	for(int i = 0; i < (N / abc[2]); i++){
 		q = diofant2(abc[0], abc[1], (N - abc[2] * i));
@@ -56,11 +55,7 @@ int *diofant3(int abc[], int N) {
 			}
 		}
 	}
-	result[0] = sumaMax;
-	result[1] = w[0];
-	result[2] = w[1];
-	result[3] = w[2];
-	return result;
+	return sumaMax;
 }
 
 int* sort(int *abc){
@@ -82,15 +77,15 @@ int* sort(int *abc){
 /* Описание: Поиск наибольшей суммы положительных целых решений    */
 /* диофантова уравнения Ax + By + Cz = N                           */
 /*******************************************************************/
-int *kaspinas(int abc[] , int n) {
-	int *ww = new int[4]; 
-	ww = diofant3(abc, n);
-	
-	while((ww[1] == -1) && (n > abc[0])){
-		if(ww[1] == -1) --n;
-		ww = diofant3(abc, n);
+int kaspinas(int abc[] , int n) {
+	int result; 
+	result = diofant3(abc, n);
+
+	while((result == -1) && (n > abc[0])){
+		if(result == -1) --n;
+		result = diofant3(abc, n);
 	}
-	return ww;
+	return result;
 }
 
 int main() {
@@ -112,12 +107,11 @@ int main() {
 	
 	cout << "Enter c:";
 	cin >> abc[2];
-	int *r = new int[4];
+
 	if((n<abc[2]) || (n<abc[1]) || (n<abc[0])){
 		cout << "Ошибка: части превышают длину ленты!\n";
 	}else{
 		sort(abc);
-		r = kaspinas(abc, n);
-		cout << "Ответ: " <<  r[0] << "\n";
+		cout << "Ответ: " <<  kaspinas(abc, n) << "\n";
 	}
 }
