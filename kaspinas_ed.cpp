@@ -15,8 +15,8 @@
 using namespace std;
 
 //Объявляем переменные
-long int a, b, c, n;
-
+long int n;
+int *abc = new int[3];
 /*******************************************************************/
 /* Функция: diofant2                                               */
 /* Описание: Решение диофантова уравнения Ax + By = C              */
@@ -66,12 +66,8 @@ int *diofant3(int A, int B, int C, int N) {
 	return result;
 }
 
-int min(int a, int b, int c){
-	int *abc = new int[3];
+int* sort(){
 	int tmp;
-	abc[0] = a;
-	abc[1] = b;
-	abc[2] = c;
 	// Сортировка abc по возрастанию 
 	for(int j = 0; j <= 2; j++) {
 		for(int i = 0; i <= 1; i++) {
@@ -82,8 +78,7 @@ int min(int a, int b, int c){
 			}
 		}
 	}
-	//cout << "MIN:" << abc[0] << "\n";
-	return abc[0];
+	return abc;
 }
 /*******************************************************************/
 /* Функция: kaspinas                                               */
@@ -92,8 +87,10 @@ int min(int a, int b, int c){
 /*******************************************************************/
 int *kaspinas(int a, int b, int c, int n) {
 	int *ww = new int[4];
+	cout << "Sorted:" << abc[0] << " " << abc[1] << " " << abc[2] << "\n"; 
 	ww = diofant3(a, b, c, n);
-	while((ww[1] == -1) && (n > min(a, b, c))){
+	
+	while((ww[1] == -1) && (n > abc[0])){
 		if(ww[1] == -1) --n;
 		ww = diofant3(a, b, c, n);
 	}
@@ -108,18 +105,19 @@ int main() {
 	cin >> n;
 	
 	cout << "Enter a:";
-	cin >> a;
+	cin >> abc[0];
 	
 	cout << "Enter b:";
-	cin >> b;
+	cin >> abc[1];
 	
 	cout << "Enter c:";
-	cin >> c;
+	cin >> abc[2];
 	int *r = new int[4];
-	if((n<c) || (n<b) || (n<a)){
+	if((n<abc[2]) || (n<abc[1]) || (n<abc[0])){
 		cout << "Ошибка: части превышают длину ленты!\n";
 	}else{
-		r = kaspinas(a, b, c, n);
+		sort();
+		r = kaspinas(abc[0], abc[1], abc[2], n);
 		cout << "Ответ: " <<  r[0] << "\n";
 	}
 }
