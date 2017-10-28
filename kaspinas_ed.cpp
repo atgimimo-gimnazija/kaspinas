@@ -31,39 +31,37 @@ int* sort(int abc[]){
 }
 
 /*******************************************************************/
-/* Функция: diofant2                                               */
+/* Функция: diofant                                               */
 /* Описание: Поиск наибольшей суммы целых положительных решений    */
 /* диофантова уравнения Ax + By + Cz = N                           */
 /*******************************************************************/
-int *diofant(int A, int B, int C, int N) {
-	 int z, sumaMax = 0;
-	 int *w = new int[3];
-	 int *result = new int[4];
-	    for(int z = 0; z < (N / C); z++){
+int diofant(int abc[], int n) {
+	int a = abc[0]; int b = abc[1]; int c = abc[2];
 
-	        int  x, y;
-	        int t = (N - C * z);
-	        for(int y = 0; y < A; y++){
-	            if((t - B * y) % A == 0){
-	                x = (t - B * y) / A;
-	                break;
-	            }
-	        }
-
-	        if((x >= 0) && (y >= 0)){
-	            if((x + y + z) > sumaMax){
-	                sumaMax = (x + y + z);
-	                w[0] = x;
-	                w[1] = y;
-	                w[2] = z;
-	            }
-	        }
-	    }
-	    result[0] = sumaMax;
-	    result[1] = w[0];
-	    result[2] = w[1];
-	    result[3] = w[2];
-	    return result;
+	int iR=-1, iX=-1, iY, iZ;
+	while((iX==-1) & (n > abc[0])){
+		if(iR!=-1) --n;
+		int sumaMax = 0;
+		for(int z=0; z < (n/c); z++){
+			int x, y, t = (n - c*z);
+			for(y = 0; y < a; y++){
+				if((t - b*y) % a == 0){
+					x = (t - b*y) / a;
+					break;
+				}
+			}
+			if((x >= 0) && (y >= 0)){
+				if((x+y+z) > sumaMax){
+					sumaMax = (x+y+z);
+					iX=x;
+					iY=y;
+					iZ=z;
+				}
+			}
+		}
+		iR = sumaMax;
+	}
+	return iR;
 }
 
 
@@ -86,12 +84,12 @@ int main() {
 	
 	cout << "Enter c:";
 	cin >> abc[2];
-	int *r = new int[4];
+
 	if((n<abc[2]) || (n<abc[1]) || (n<abc[0])){
 		cout << "Ошибка: части превышают длину ленты!\n";
 	}else{
 		abc = sort(abc);
-		r = diofant(abc[0],abc[1],abc[2], n);
-		cout << "Ответ: " <<  r[0] << "\n";
+		
+		cout << "Ответ: " <<  diofant(abc, n) << "\n";
 	}
 }
