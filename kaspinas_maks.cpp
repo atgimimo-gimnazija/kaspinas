@@ -21,7 +21,7 @@ int* sort(int abc[]){
 int main() {
 	int n, count, result=0;
 	int *abc = new int[3];
-
+	n=930000; abc[0] = 94; abc[1] = 23; abc[2] = 44; //40
 	//n=121; abc[0] = 94; abc[1] = 3; abc[2] = 4; //40
 	//n=121; abc[0] = 5; abc[1] = 3; abc[2] = 7; // 39
 	//n=121; abc[0] = 3; abc[1] = 5; abc[2] = 5; // 37*3 + 5*2 // 39 
@@ -48,10 +48,10 @@ int main() {
 	
 	abc = sort(abc);
 	count =  n / abc[0]; 
-		
-	while(count > 0){
-		for(int i = 0; i < abc[0] * abc[1]; i++) {
-			for(int j=0; j < abc[0] * abc[1]; j++) {
+	int k = abc[1];
+	while(k > 0){
+		for(int i = 0; i < abc[0]; i++) {
+			for(int j=0; j <  abc[1]; j++) {
 				if( n == count * abc[0] +  abc[0] * i + abc[1] * j) {
 					if(result == 0)
 						result = count + j; 
@@ -60,6 +60,7 @@ int main() {
 			}
 		}
 		count--;
+		k--;
 	}
 	
 	if(result == 0)
