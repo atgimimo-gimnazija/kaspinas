@@ -42,19 +42,14 @@ int calc(int n, int abc[]) {
 				//cout << "count:" << count << " i:" << i << " j:" << j  << "  Sum:" << (count * abc[0] +  abc[1] * i + abc[2] * j) << "\n";
 				if( n == k * abc[0] +  abc[1] * i + abc[2	] * j) {
 					//cout << " FOUND! count:" << count << " i:" << i << " j:" << j << " Result: " << (count + j + i) << "  Sum:" << count * abc[0] +  abc[1] * i + abc[2] * j << "\n";
-					if(result == 0 ) {
-						return count + j + i; 
-					}
-					break;
+					return count + j + i; 
 				}
 			}
 		}
 		count--;
 		k--;
 	}
-	if(result == 0)
-		return n / abc[0];
-
+	return n / abc[0];
 }
 
 int main() {
