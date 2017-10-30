@@ -2,6 +2,9 @@
 
 using namespace std;
 
+/*
+ * сортировка массива по возрастанию
+ */
 int* sort(int abc[]){
 	int tmp;
 	// Сортировка abc по возрастанию 
@@ -20,8 +23,9 @@ int* sort(int abc[]){
 
 
 int findMultiplicator(int x, int y) {
-	for(int i=1; i<=y; i++){
-		if((x*i) % y == 0){
+	for(int i=1; i<=y; i++) {
+		if((x*i) % y == 0) {
+			//cout << " Multi:" << x << "x" << y << ": " << x*i << "\n";
 			return x*i;
 		}
 	}
@@ -31,9 +35,9 @@ int calc(int n, int abc[]) {
 	int result=0;
 	int count =  n / abc[0]; 
 	int k = count;
-	int r = (count - findMultiplicator(abc[0], abc[1]) / abc[1]);
-	int limitC = findMultiplicator(abc[1], abc[2]) / abc[2];
+	int r = count - findMultiplicator(abc[0], abc[1]) / abc[1];
 	int limitB = findMultiplicator(abc[0], abc[1]) / abc[1];
+	int limitC = findMultiplicator(abc[1], abc[2]) / abc[2];
 	//cout << "count:" << count << " r:" << r << " limitB:" << limitB << " limitC:" << limitC << " " << "\n";
 	//cout << "count - limitB: " << count - limitB << " count - limitC:" << count - limitC << "\n"; 
 	while(k >= r) {
@@ -72,8 +76,11 @@ int main() {
 	/**/
 	//n=1000000; abc[0] = 194; abc[1] = 222322; abc[2] = 12424; //40
 	//n=121; abc[0] = 5; abc[1] = 3; abc[2] = 7; // 39
-	//n=121; abc[0] = 3; abc[1] = 5; abc[2] = 5; // 37*3 + 5*2 // 39 
+	//n=121; abc[0] = 3; abc[1] = 5; abc[2] = 8; // 37*3 + 5*2 // 39 
 	//n=121; abc[0] = 3; abc[1] = 7; abc[2] = 5; // 38*3 + 7*1 // 39
+	
+	//n=121; abc[0] = 4; abc[1] = 6; abc[2] = 7; // 38*3 + 7*1 // 39
+		
 	//n=7; abc[0] = 4; abc[1] = 3; abc[2] = 2;  // 3
 	//n=5; abc[0] = 2; abc[1] = 4; abc[2] = 3; //2
 	
@@ -81,7 +88,8 @@ int main() {
 	//n=5; abc[0] = 5; abc[1] = 3; abc[2] = 2;
 	
 	cout << "Входные данные. n:" <<  n << " a:" << abc[0] << " b:" << abc[1] << " c:" << abc[2] <<"\n";
-	abc = sort(abc);
+	//abc = sort(abc);
 	cout << "Ответ: " << calc(n, abc) << "\n";
+
 }
 
