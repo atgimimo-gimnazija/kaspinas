@@ -21,7 +21,9 @@ int* sort(int abc[]){
 	return abc;
 }
 
-
+/*
+ * находит наименьшее общее кратное двух чисел, например,  для 6 и 9 это 18
+ */
 int findMultiplicator(int x, int y) {
 	for(int i=1; i<=y; i++) {
 		if((x*i) % y == 0) {
@@ -30,10 +32,23 @@ int findMultiplicator(int x, int y) {
 		}
 	}
 }
+/*
+ * вычисляет слагаемые.
+ * на вход функции подаётся отсортированный массив кусочков abc и длина ленты n
+ * сначала находится  на сколько  самых маленьких кусочков можно порезать ленту,
+ * это переменная count. Остаток от разницы n - count*abc называем "хвостом".
+ * Теперь задача увеличивая хвост подобрать в  него оставшиеся два кусочки.
+ * 
+ * Первый цикл закручивается по k, начальное значение которого
+ * равно count, а уменьшаем до предела r. r вычислям как разницу между количеством 
+ * маленьких кусочков и тем количеством средних кусочков, сколько их поместится
+ * в наименьшем кратном маленьких и средних кусочков. Увеличивать хвост для 
+ * подбора за этим ограничением нет смысла, так как потом будет повторение в цикле.
+ */
 
 int calc(int n, int abc[]) {
-	int result=0;
 	int count =  n / abc[0]; 
+	int result=0;
 	int k = count;
 	int r = count - findMultiplicator(abc[0], abc[1]) / abc[1];
 	int limitB = findMultiplicator(abc[0], abc[1]) / abc[1];
@@ -43,9 +58,9 @@ int calc(int n, int abc[]) {
 	while(k >= r) {
 		for(int i = 0; i < limitB; i++) {
 			for(int j = 0; j <  limitC; j++) {
-				//cout << "count:" << count << " i:" << i << " j:" << j  << "  Sum:" << (count * abc[0] +  abc[1] * i + abc[2] * j) << "\n";
+				cout << "count:" << count << " i:" << i << " j:" << j  << "  Sum:" << (count * abc[0] +  abc[1] * i + abc[2] * j) << "\n";
 				if( n == k * abc[0] +  abc[1] * i + abc[2	] * j) {
-					//cout << " FOUND! count:" << count << " i:" << i << " j:" << j << " Result: " << (count + j + i) << "  Sum:" << count * abc[0] +  abc[1] * i + abc[2] * j << "\n";
+					cout << " FOUND! count:" << count << " i:" << i << " j:" << j << " Result: " << (count + j + i) << "  Sum:" << count * abc[0] +  abc[1] * i + abc[2] * j << "\n";
 					return count + j + i; 
 				}
 			}
@@ -60,7 +75,7 @@ int main() {
 	int n;
 	int *abc = new int[3];
 	
-	/**/
+	/** /
 	// Ввод значений
 	cout << "Enter n:";
 	cin >> n;
@@ -79,7 +94,9 @@ int main() {
 	//n=121; abc[0] = 3; abc[1] = 5; abc[2] = 8; // 37*3 + 5*2 // 39 
 	//n=121; abc[0] = 3; abc[1] = 7; abc[2] = 5; // 38*3 + 7*1 // 39
 	
-	//n=121; abc[0] = 4; abc[1] = 6; abc[2] = 7; // 38*3 + 7*1 // 39
+	n=22; abc[0] = 3; abc[1] = 5; abc[2] = 9; // 
+	
+	//n=12; abc[0] = 3; abc[1] = 10; abc[2] = 11; // 38*3 + 7*1 // 39
 		
 	//n=7; abc[0] = 4; abc[1] = 3; abc[2] = 2;  // 3
 	//n=5; abc[0] = 2; abc[1] = 4; abc[2] = 3; //2
